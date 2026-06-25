@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oráculo Astral</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg1: #0b001a;
+    --bg2: #1a0033;
+    --card: rgba(255,255,255,0.06);
+    --stroke: rgba(255,255,255,0.12);
+    --text: #f5e9ff;
+    --muted: #c8b6e6;
+    --accent: #b56cff;
+    --accent2: #ff4fd8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at top, #2a0055, var(--bg1));
+    color: var(--text);
+}
+
+.container {
+    width: 430px;
+    padding: 30px;
+    border-radius: 18px;
+    background: var(--card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--stroke);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+
+h1 {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+label {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 6px;
+    display: block;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid var(--stroke);
+    background: rgba(0,0,0,0.25);
+    color: white;
+    outline: none;
+    margin-bottom: 15px;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+.result {
+    margin-top: 20px;
+    padding: 18px;
+    border-radius: 14px;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--stroke);
+    display: none;
+}
+
+.big {
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.card {
+    background: rgba(255,255,255,0.05);
+    padding: 12px;
+    border-radius: 10px;
+}
+
+.card span {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.card strong {
+    font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🌌 Oráculo Astral</h1>
+
+    <label>Data de nascimento</label>
+    <input type="date" id="dataNascimento">
+
+    <button onclick="calcular()">Revelar Arquétipo</button>
+
+    <div class="result" id="resultado">
+
+        <div class="big" id="signo"></div>
+
+        <div class="grid">
+            <div class="card">
+                <span>Decanato</span>
+                <strong id="decanato"></strong>
+            </div>
+
+            <div class="card">
+                <span>Planeta</span>
+                <strong id="planeta"></strong>
+            </div>
+
+            <div class="card">
+                <span>Arquétipo</span>
+                <strong id="arquetipo"></strong>
+            </div>
+
+            <div class="card">
+                <span>Idade</span>
+                <strong id="idade"></strong>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+const icones = {
+  "Áries":"♈",
+  "Touro":"♉",
+  "Gêmeos":"♊",
+  "Câncer":"♋",
+  "Leão":"♌",
+  "Virgem":"♍",
+  "Libra":"♎",
+  "Escorpião":"♏",
+  "Sagitário":"♐",
+  "Capricórnio":"♑",
+  "Aquário":"♒",
+  "Peixes":"♓"
+};
+
+// SIGNOS CORRETOS
+const signos = [
+    { nome:"Capricórnio", inicio:[12,22], fim:[1,19] },
+    { nome:"Aquário", inicio:[1,20], fim:[2,18] },
+    { nome:"Peixes", inicio:[2,19], fim:[3,20] },
+    { nome:"Áries", inicio:[3,21], fim:[4,19] },
+    { nome:"Touro", inicio:[4,20], fim:[5,20] },
+    { nome:"Gêmeos", inicio:[5,21], fim:[6,20] },
+    { nome:"Câncer", inicio:[6,21], fim:[7,22] },
+    { nome:"Leão", inicio:[7,23], fim:[8,22] },
+    { nome:"Virgem", inicio:[8,23], fim:[9,22] },
+    { nome:"Libra", inicio:[9,23], fim:[10,22] },
+    { nome:"Escorpião", inicio:[10,23], fim:[11,21] },
+    { nome:"Sagitário", inicio:[11,22], fim:[12,21] }
+];
+
+// PLANETAS + ARQUÉTIPOS CORRIGIDOS
+const decanatos = {
+    "Áries":[
+        {planeta:"Marte", arquetipo:"Ares"},
+        {planeta:"Sol", arquetipo:"Hélio"},
+        {planeta:"Vênus", arquetipo:"Afrodite"}
+    ],
+    "Touro":[
+        {planeta:"Vênus", arquetipo:"Afrodite"},
+        {planeta:"Mercúrio", arquetipo:"Hermes"},
+        {planeta:"Saturno", arquetipo:"Cronos"}
+    ],
+    "Gêmeos":[
+        {planeta:"Mercúrio", arquetipo:"Hermes"},
+        {planeta:"Vênus", arquetipo:"Afrodite"},
+        {planeta:"Urano", arquetipo:"Ouranos"}
+    ],
+    "Câncer":[
+        {planeta:"Lua", arquetipo:"Selene"},
+        {planeta:"Plutão", arquetipo:"Hades"},
+        {planeta:"Netuno", arquetipo:"Poseidon"}
+    ],
+    "Leão":[
+        {planeta:"Sol", arquetipo:"Hélio"},
+        {planeta:"Júpiter", arquetipo:"Zeus"},
+        {planeta:"Marte", arquetipo:"Ares"}
+    ],
+    "Virgem":[
+        {planeta:"Mercúrio", arquetipo:"Hermes"},
+        {planeta:"Saturno", arquetipo:"Cronos"},
+        {planeta:"Vênus", arquetipo:"Afrodite"}
+    ],
+    "Libra":[
+        {planeta:"Vênus", arquetipo:"Afrodite"},
+        {planeta:"Saturno", arquetipo:"Cronos"},
+        {planeta:"Júpiter", arquetipo:"Zeus"}
+    ],
+    "Escorpião":[
+        {planeta:"Plutão", arquetipo:"Hades"},
+        {planeta:"Marte", arquetipo:"Ares"},
+        {planeta:"Lua", arquetipo:"Selene"}
+    ],
+    "Sagitário":[
+        {planeta:"Júpiter", arquetipo:"Zeus"},
+        {planeta:"Marte", arquetipo:"Ares"},
+        {planeta:"Sol", arquetipo:"Hélio"}
+    ],
+    "Capricórnio":[
+        {planeta:"Saturno", arquetipo:"Cronos"},
+        {planeta:"Vênus", arquetipo:"Afrodite"},
+        {planeta:"Mercúrio", arquetipo:"Hermes"}
+    ],
+    "Aquário":[
+        {planeta:"Urano", arquetipo:"Ouranos"},
+        {planeta:"Mercúrio", arquetipo:"Hermes"},
+        {planeta:"Vênus", arquetipo:"Afrodite"}
+    ],
+    "Peixes":[
+        {planeta:"Netuno", arquetipo:"Poseidon"},
+        {planeta:"Lua", arquetipo:"Selene"},
+        {planeta:"Plutão", arquetipo:"Hades"}
+    ]
+};
+
+// CORREÇÃO DE DATA
+function parseDate(input){
+    const [y,m,d] = input.split("-").map(Number);
+    return new Date(y, m-1, d);
+}
+
+function idade(d){
+    const h = new Date();
+    let i = h.getFullYear()-d.getFullYear();
+    if(h.getMonth()<d.getMonth() || (h.getMonth()===d.getMonth() && h.getDate()<d.getDate())) i--;
+    return i;
+}
+
+// SIGNO CORRETO
+function getSigno(date){
+    const m = date.getMonth()+1;
+    const d = date.getDate();
+
+    for(let s of signos){
+        const [sm, sd] = s.inicio;
+        const [em, ed] = s.fim;
+
+        if(sm < em || (sm === em && sd <= ed)){
+            if((m === sm && d >= sd) || (m === em && d <= ed) || (m > sm && m < em)){
+                return s.nome;
+            }
+        } else {
+            if((m === sm && d >= sd) || (m === em && d <= ed) || m > sm || m < em){
+                return s.nome;
+            }
+        }
+    }
+    return "Áries";
+}
+
+// DECADANOS CORRETOS (dentro do signo)
+function getDecanato(signo, date){
+    const lista = decanatos[signo];
+
+    const start = signos.find(s => s.nome === signo).inicio;
+    const startM = start[0];
+    const startD = start[1];
+
+    const m = date.getMonth()+1;
+    const d = date.getDate();
+
+    let diff = ((m*30 + d) - (startM*30 + startD));
+
+    if(diff < 0) diff += 30;
+
+    let dec = Math.floor(diff / 10);
+    if(dec > 2) dec = 2;
+
+    return {
+        decanato: (dec+1)+"º Decanato",
+        planeta: lista[dec].planeta,
+        arquetipo: lista[dec].arquetipo
+    };
+}
+
+function calcular(){
+    const input = document.getElementById("dataNascimento").value;
+    if(!input) return;
+
+    const d = parseDate(input);
+
+    const signo = getSigno(d);
+    const dec = getDecanato(signo, d);
+
+    document.getElementById("signo").innerText =
+        icones[signo] + " " + signo;
+
+    document.getElementById("decanato").innerText = dec.decanato;
+    document.getElementById("planeta").innerText = dec.planeta;
+    document.getElementById("arquetipo").innerText = dec.arquetipo;
+    document.getElementById("idade").innerText = idade(d) + " anos";
+
+    document.getElementById("resultado").style.display = "block";
+}
+</script>
+
+</body>
+</html>

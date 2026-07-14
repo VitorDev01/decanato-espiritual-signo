@@ -3,10 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inlfuencia Astral</title>
-
+<title>Influência Astral</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
     <style>
 :root {
     --bg1: #020b0a;
@@ -18,14 +16,12 @@
     --accent: #00ff88;
     --accent2: #00ff44;
 }
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Share Tech Mono', monospace;
 }
-
 body {
     min-height: 100vh;
     background: radial-gradient(circle at top, #003322, var(--bg1));
@@ -35,7 +31,6 @@ body {
     flex-direction: column;
     align-items: center;
 }
-
 .container {
     width: 100%;
     max-width: 460px;
@@ -48,7 +43,6 @@ body {
                 0 0 30px rgba(0, 255, 100, 0.15);
     margin-top: 80px;
 }
-
 /* Títulos com efeito neon */
 h1, .accordion-title {
     text-align: center;
@@ -59,13 +53,11 @@ h1, .accordion-title {
     -webkit-text-fill-color: transparent;
     text-shadow: 0 0 15px var(--accent);
 }
-
 /* Inputs Matrix Neon Modernos */
 .input-wrapper {
     position: relative;
     margin-bottom: 16px;
 }
-
 .input-wrapper input:not([type="radio"]) {
     width: 100%;
     padding: 16px 55px 16px 18px;
@@ -77,16 +69,13 @@ h1, .accordion-title {
     outline: none;
     box-shadow: 0 0 10px rgba(0, 255, 100, 0.2);
 }
-
 .input-wrapper input:focus {
     border-color: var(--accent);
     box-shadow: 0 0 15px rgba(0, 255, 100, 0.4);
 }
-
 .input-wrapper input::placeholder {
     color: #00aa66;
 }
-
 /* Botões dentro dos inputs */
 .enter-btn {
     position: absolute;
@@ -102,13 +91,11 @@ h1, .accordion-title {
     font-size: 15px;
     box-shadow: 0 0 8px var(--accent);
 }
-
 .enter-btn:hover {
     background: var(--accent);
     color: black;
     box-shadow: 0 0 15px var(--accent);
 }
-
 /* Botões grandes */
 .btn-matrix, .matrix-btn {
     width: 100%;
@@ -124,12 +111,10 @@ h1, .accordion-title {
     transition: all 0.3s;
     box-shadow: 0 0 15px rgba(0, 255, 100, 0.5);
 }
-
 .btn-matrix:hover, .matrix-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 0 25px var(--accent);
 }
-
 /* Resultados */
 .result {
     margin-top: 20px;
@@ -139,67 +124,70 @@ h1, .accordion-title {
     border: 1px solid var(--stroke);
     display: none;
 }
-
-/* Ajustes gerais */
-.accordion-content {
-    padding: 10px 0;
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 15px;
 }
-
-.btn-container {
+.card {
+    background: rgba(0, 40, 25, 0.6);
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--stroke);
+    text-align: center;
+}
+.card span {
+    display: block;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 4px;
+}
+.card strong {
+    color: var(--accent);
+    font-size: 16px;
+}
+/* Foto de Perfil */
+.profile-container {
+    text-align: center;
     margin: 20px 0;
 }
-
-@media (max-width: 600px) {
-    .container {
-        padding: 20px 15px;
-        margin-top: 60px;
-    }
+.profile-img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+    box-shadow: 0 0 30px rgba(0, 255, 100, 0.6);
+    object-fit: cover;
 }
-
+/* Ajustes gerais */
 .lock-ascii{
-
   display:flex;
   justify-content:center;
-
   margin-top:-5px;
   margin-bottom:20px;
-
   opacity:.8;
 }
-
 .lock-ascii pre{
-
   margin:0;
-
   color:#00ff88;
-
   font-size:10px;
-
   line-height:0.9;
-
   font-family:'Share Tech Mono', monospace;
-
   text-shadow:
     0 0 5px #00ff88,
     0 0 15px rgba(0,255,136,.5);
-
   animation:lockGlow 3s infinite ease-in-out;
 }
-
-/* brilho */
-
 @keyframes lockGlow{
-
   0%{
     opacity:.5;
     transform:scale(1);
   }
-
   50%{
     opacity:1;
     transform:scale(1.04);
   }
-
   100%{
     opacity:.5;
     transform:scale(1);
@@ -207,46 +195,53 @@ h1, .accordion-title {
 }
 </style>
 </head>
-
 <body>
-
 <div class="container">
-    <h1>🌌 Decanato Data </h1>
-
+    <h1>🌌 Decanato + Ciclos de Lilith</h1>
+    
     <label>Data de nascimento</label>
     <input type="date" id="dataNascimento">
 
-    <button onclick="calcular()">Revelar Inlfuencia</button>
+    <label>Link da foto de perfil (rede social)</label>
+    <div class="input-wrapper">
+        <input type="text" id="profileLink" placeholder="Cole o link da imagem ou perfil">
+        <button class="enter-btn" onclick="carregarFoto()">Pegar Imagem</button>
+    </div>
+
+    <div class="profile-container" id="profileContainer" style="display: none;">
+        <img id="profileImg" class="profile-img" alt="Foto de Perfil">
+    </div>
+
+    <button class="btn-matrix" onclick="calcular()">Revelar Influência</button>
 
     <div class="result" id="resultado">
-
         <div class="big" id="signo"></div>
-
         <div class="grid">
             <div class="card">
                 <span>Decanato</span>
                 <strong id="decanato"></strong>
             </div>
-
             <div class="card">
                 <span>Planeta</span>
                 <strong id="planeta"></strong>
             </div>
-
             <div class="card">
                 <span>Arquétipo</span>
                 <strong id="arquetipo"></strong>
             </div>
-
             <div class="card">
                 <span>Idade</span>
                 <strong id="idade"></strong>
             </div>
+            <div class="card">
+                <span>Ciclo de Lilith</span>
+                <strong id="cicloLilith"></strong>
+            </div>
         </div>
-
     </div>
 </div>
-    <br>
+
+<br>
 <div class="lock-ascii">
      <pre>
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⡴⠶⠚⠛⠛⠛⠉⠛⠛⠛⢶⡟⠉⢢⠀⠀
@@ -265,35 +260,6 @@ h1, .accordion-title {
      </pre>
    </div>
     <br>
-<div class="lock-ascii">
-     <pre>
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡤⣤⣒⣒⡾⢭⡩⠉⢰⢖⣖⠤⢤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⢀⣠⣶⣿⢷⣫⠤⢲⠄⠀⠀⠧⡵⠀⡛⠉⢂⢄⣀⢻⣶⣄⡀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⢀⡴⣏⡽⢿⣿⣜⢲⡀⡼⠃⠀⡠⢻⣓⣄⢹⣼⢪⠃⢠⠉⠞⠋⠉⠢⡀⠀⠀⠀⠀⠀
-⠀⠀⠀⢀⣴⠏⠀⢠⠴⢾⡽⣥⡟⡃⢙⡤⢤⡱⣈⠤⡍⣄⣞⠛⣒⣼⣲⠀⠀⠀⠀⠈⢢⡀⠀⠀⠀
-⠀⠀⢠⡞⠁⠀⠀⠳⡤⡼⠀⠋⠱⣔⢄⡎⠭⠕⠁⠸⢹⠛⢯⣦⠊⠉⠁⠀⠀⠀⠀⠀⠀⠱⡄⠀⠀
-⠀⢠⡟⠀⠀⠀⠀⠀⠛⠀⠀⢤⣶⡸⡼⠸⡀⠀⠀⠸⢸⢠⠈⠃⡠⠤⣲⣄⢀⣗⣷⡄⢷⡀⠘⡄⠀
-⠀⣮⠃⠀⠀⠀⠀⠀⢀⡠⠞⠛⠁⠈⠑⡣⠃⠀⠀⢰⢈⠈⡢⠶⠕⠒⣜⡋⣻⣟⢦⠀⠘⠃⠀⢱⡀
-⢸⢻⠀⠀⠀⠀⠀⢀⡼⣘⡕⠀⠀⠀⠈⠀⠀⠀⢀⢇⢎⡜⠁⠀⠀⠀⠀⠈⠈⠉⠉⣄⠀⠀⠀⡀⡇
-⡟⡎⡄⠀⡖⠒⢲⢣⠌⡎⠀⠀⠀⠀⠀⠀⠀⠀⡜⡜⡎⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣆⠀⢠⠟⣼
-⡿⡔⢝⣄⢇⢶⠀⠽⢲⠁⠀⠀⠀⠀⠀⠀⠀⠀⢇⢇⢇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣶⡇⠀⣿
-⣷⠈⠢⣈⠉⡪⣧⡂⠌⠒⠄⠀⠀⠀⠀⠀⠀⠀⠘⢎⠪⡓⠤⠠⠤⠲⡄⠀⠀⠀⠀⠀⠀⣰⢱⢡⢻
-⢸⡄⠀⠀⠙⢎⡎⡎⠑⠒⠲⣄⡀⠀⢦⡀⠀⠀⠀⠀⠑⠢⠄⠀⡄⡇⢧⠀⠀⠀⠀⠀⠞⢡⠃⡠⡇
-⠈⣷⠀⠀⠀⠘⣇⠇⠀⠀⠀⠀⠹⢂⣂⡀⠉⠲⡄⠀⠀⠀⠀⠀⠁⠀⢸⠀⠀⠀⠀⢸⢀⡹⡀⢱⠁
-⠀⠘⣧⠀⠀⢰⢇⢆⠀⠀⠀⠀⠀⠀⠀⠈⡵⡀⡅⠀⠀⠀⠀⠀⠀⠀⡎⠀⠀⠀⠰⢳⢫⢣⢣⠇⠀
-⠀⠀⠘⣧⠀⠀⠳⣗⢳⢤⠀⠀⠀⠀⠀⠸⣰⢱⠁⠀⠀⠀⠀⠀⠀⠀⢹⠀⢀⠜⠁⠓⡣⣣⠏⠀⠀
-⠀⠀⠀⠈⢷⣄⠀⠈⢣⢏⡇⠀⠀⠀⡔⣊⢜⡎⠀⠀⠀⠀⠀⠀⢆⠰⣘⣺⠕⣀⠤⢀⡴⠁⠀⠀⠀
-⠀⠀⠀⠀⠀⠙⢷⣄⠀⢫⠘⡄⢀⡞⡝⡰⠋⠀⠀⠀⠀⠀⠀⠀⠀⠁⠒⠒⠊⢁⡴⠋⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠉⠻⢦⣧⡘⢾⣜⠰⡅⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠖⠉⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠳⠿⢤⣌⣀⣀⣀⣀⣀⣠⡤⠤⠖⠊⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-     </pre>
-   </div>
-    <br>
-    <div class="lock-ascii">
-     <pre>
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-     </pre>
-   </div>
 <script>
 const icones = {
   "Áries":"♈︎ Marte",
@@ -310,7 +276,6 @@ const icones = {
   "Peixes":"♓︎ Leviatã"
 };
 
-// SIGNOS CORRETOS
 const signos = [
     { nome:"Capricórnio", inicio:[12,22], fim:[1,19] },
     { nome:"Aquário", inicio:[1,20], fim:[2,18] },
@@ -326,71 +291,21 @@ const signos = [
     { nome:"Sagitário", inicio:[11,22], fim:[12,21] }
 ];
 
-// PLANETAS + ARQUÉTIPOS CORRIGIDOS
 const decanatos = {
-    "Áries":[
-        {planeta:"Marte", arquetipo:"Ares"},
-        {planeta:"Sol", arquetipo:"Hélio"},
-        {planeta:"Vênus", arquetipo:"Afrodite"}
-    ],
-    "Touro":[
-        {planeta:"Vênus", arquetipo:"Afrodite"},
-        {planeta:"Mercúrio", arquetipo:"Hermes"},
-        {planeta:"Saturno", arquetipo:"Cronos"}
-    ],
-    "Gêmeos":[
-        {planeta:"Mercúrio", arquetipo:"Hermes"},
-        {planeta:"Vênus", arquetipo:"Afrodite"},
-        {planeta:"Urano", arquetipo:"Ouranos"}
-    ],
-    "Câncer":[
-        {planeta:"Lua", arquetipo:"Selene"},
-        {planeta:"Plutão", arquetipo:"Hades"},
-        {planeta:"Netuno", arquetipo:"Poseidon"}
-    ],
-    "Leão":[
-        {planeta:"Sol", arquetipo:"Hélio"},
-        {planeta:"Júpiter", arquetipo:"Zeus"},
-        {planeta:"Marte", arquetipo:"Ares"}
-    ],
-    "Virgem":[
-        {planeta:"Mercúrio", arquetipo:"Hermes"},
-        {planeta:"Saturno", arquetipo:"Cronos"},
-        {planeta:"Vênus", arquetipo:"Afrodite"}
-    ],
-    "Libra":[
-        {planeta:"Vênus", arquetipo:"Afrodite"},
-        {planeta:"Saturno", arquetipo:"Cronos"},
-        {planeta:"Júpiter", arquetipo:"Zeus"}
-    ],
-    "Escorpião":[
-        {planeta:"Plutão", arquetipo:"Hades"},
-        {planeta:"Marte", arquetipo:"Ares"},
-        {planeta:"Lua", arquetipo:"Selene"}
-    ],
-    "Sagitário":[
-        {planeta:"Júpiter", arquetipo:"Zeus"},
-        {planeta:"Marte", arquetipo:"Ares"},
-        {planeta:"Sol", arquetipo:"Hélio"}
-    ],
-    "Capricórnio":[
-        {planeta:"Saturno", arquetipo:"Cronos"},
-        {planeta:"Vênus", arquetipo:"Afrodite"},
-        {planeta:"Mercúrio", arquetipo:"Hermes"}
-    ],
-    "Aquário":[
-        {planeta:"Urano", arquetipo:"Ouranos"},
-        {planeta:"Mercúrio", arquetipo:"Hermes"},
-        {planeta:"Vênus", arquetipo:"Afrodite"}
-    ],
-    "Peixes":[
-        {planeta:"Netuno", arquetipo:"Poseidon"},
-        {planeta:"Lua", arquetipo:"Selene"},
-        {planeta:"Plutão", arquetipo:"Hades"}
-    ]
+    "Áries":[ {planeta:"Marte", arquetipo:"Ares"}, {planeta:"Sol", arquetipo:"Hélio"}, {planeta:"Vênus", arquetipo:"Afrodite"} ],
+    "Touro":[ {planeta:"Vênus", arquetipo:"Afrodite"}, {planeta:"Mercúrio", arquetipo:"Hermes"}, {planeta:"Saturno", arquetipo:"Cronos"} ],
+    "Gêmeos":[ {planeta:"Mercúrio", arquetipo:"Hermes"}, {planeta:"Vênus", arquetipo:"Afrodite"}, {planeta:"Urano", arquetipo:"Ouranos"} ],
+    "Câncer":[ {planeta:"Lua", arquetipo:"Selene"}, {planeta:"Plutão", arquetipo:"Hades"}, {planeta:"Netuno", arquetipo:"Poseidon"} ],
+    "Leão":[ {planeta:"Sol", arquetipo:"Hélio"}, {planeta:"Júpiter", arquetipo:"Zeus"}, {planeta:"Marte", arquetipo:"Ares"} ],
+    "Virgem":[ {planeta:"Mercúrio", arquetipo:"Hermes"}, {planeta:"Saturno", arquetipo:"Cronos"}, {planeta:"Vênus", arquetipo:"Afrodite"} ],
+    "Libra":[ {planeta:"Vênus", arquetipo:"Afrodite"}, {planeta:"Saturno", arquetipo:"Cronos"}, {planeta:"Júpiter", arquetipo:"Zeus"} ],
+    "Escorpião":[ {planeta:"Plutão", arquetipo:"Hades"}, {planeta:"Marte", arquetipo:"Ares"}, {planeta:"Lua", arquetipo:"Selene"} ],
+    "Sagitário":[ {planeta:"Júpiter", arquetipo:"Zeus"}, {planeta:"Marte", arquetipo:"Ares"}, {planeta:"Sol", arquetipo:"Hélio"} ],
+    "Capricórnio":[ {planeta:"Saturno", arquetipo:"Cronos"}, {planeta:"Vênus", arquetipo:"Afrodite"}, {planeta:"Mercúrio", arquetipo:"Hermes"} ],
+    "Aquário":[ {planeta:"Urano", arquetipo:"Ouranos"}, {planeta:"Mercúrio", arquetipo:"Hermes"}, {planeta:"Vênus", arquetipo:"Afrodite"} ],
+    "Peixes":[ {planeta:"Netuno", arquetipo:"Poseidon"}, {planeta:"Lua", arquetipo:"Selene"}, {planeta:"Plutão", arquetipo:"Hades"} ]
 };
 
-// CORREÇÃO DE DATA
 function parseDate(input){
     const [y,m,d] = input.split("-").map(Number);
     return new Date(y, m-1, d);
@@ -403,15 +318,12 @@ function idade(d){
     return i;
 }
 
-// SIGNO CORRETO
 function getSigno(date){
     const m = date.getMonth()+1;
     const d = date.getDate();
-
     for(let s of signos){
         const [sm, sd] = s.inicio;
         const [em, ed] = s.fim;
-
         if(sm < em || (sm === em && sd <= ed)){
             if((m === sm && d >= sd) || (m === em && d <= ed) || (m > sm && m < em)){
                 return s.nome;
@@ -425,24 +337,17 @@ function getSigno(date){
     return "Áries";
 }
 
-// DECADANOS CORRETOS (dentro do signo)
 function getDecanato(signo, date){
     const lista = decanatos[signo];
-
     const start = signos.find(s => s.nome === signo).inicio;
     const startM = start[0];
     const startD = start[1];
-
     const m = date.getMonth()+1;
     const d = date.getDate();
-
     let diff = ((m*30 + d) - (startM*30 + startD));
-
     if(diff < 0) diff += 30;
-
     let dec = Math.floor(diff / 10);
     if(dec > 2) dec = 2;
-
     return {
         decanato: (dec+1)+"º Decanato",
         planeta: lista[dec].planeta,
@@ -450,26 +355,53 @@ function getDecanato(signo, date){
     };
 }
 
+// Novo: Ciclo de Lilith
+function getCicloLilith(anos){
+    if(anos < 0) return "Ainda não nasceu";
+    const ciclo = Math.min(Math.floor(anos / 7) + 1, 7);
+    return `${ciclo}º Ciclo de Lilith`;
+}
+
+// Novo: Carregar Foto de Perfil
+function carregarFoto(){
+    const url = document.getElementById("profileLink").value.trim();
+    if(!url) {
+        alert("Insira um link de imagem!");
+        return;
+    }
+    const img = document.getElementById("profileImg");
+    const container = document.getElementById("profileContainer");
+    
+    img.src = url;
+    container.style.display = "block";
+    
+    img.onerror = () => {
+        alert("Não foi possível carregar a imagem. Verifique o link.");
+        container.style.display = "none";
+    };
+}
+
 function calcular(){
     const input = document.getElementById("dataNascimento").value;
-    if(!input) return;
-
+    if(!input) {
+        alert("Por favor, insira sua data de nascimento");
+        return;
+    }
+    
     const d = parseDate(input);
-
     const signo = getSigno(d);
     const dec = getDecanato(signo, d);
+    const anos = idade(d);
 
-    document.getElementById("signo").innerText =
-        icones[signo] + " " + signo;
-
+    document.getElementById("signo").innerText = icones[signo] + " " + signo;
     document.getElementById("decanato").innerText = dec.decanato;
     document.getElementById("planeta").innerText = dec.planeta;
     document.getElementById("arquetipo").innerText = dec.arquetipo;
-    document.getElementById("idade").innerText = idade(d) + " anos";
-
+    document.getElementById("idade").innerText = anos + " anos";
+    document.getElementById("cicloLilith").innerText = getCicloLilith(anos);
+    
     document.getElementById("resultado").style.display = "block";
 }
 </script>
-
 </body>
 </html>

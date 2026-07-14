@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Influência Astral</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
+<style>
 :root {
     --bg1: #020b0a;
     --bg2: #001a12;
@@ -39,68 +39,40 @@ body {
     background: var(--card);
     backdrop-filter: blur(20px);
     border: 1px solid var(--stroke);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8),
-                0 0 30px rgba(0, 255, 100, 0.15);
-    margin-top: 80px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 255, 100, 0.15);
+    margin-top: 60px;
 }
-/* Títulos com efeito neon */
-h1, .accordion-title {
+h1 {
     text-align: center;
-    font-size: 18px;
-    margin: 20px 0 15px;
+    font-size: 19px;
+    margin-bottom: 20px;
     background: linear-gradient(90deg, var(--accent), var(--accent2));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 0 0 15px var(--accent);
 }
-/* Inputs Matrix Neon Modernos */
+label {
+    display: block;
+    margin: 15px 0 6px;
+    color: var(--muted);
+}
 .input-wrapper {
     position: relative;
     margin-bottom: 16px;
 }
-.input-wrapper input:not([type="radio"]) {
+.input-wrapper input {
     width: 100%;
-    padding: 16px 55px 16px 18px;
+    padding: 16px 18px;
     border-radius: 12px;
     border: 1px solid var(--stroke);
     background: rgba(0, 20, 10, 0.6);
     color: #00ffaa;
     font-size: 16px;
-    outline: none;
-    box-shadow: 0 0 10px rgba(0, 255, 100, 0.2);
 }
-.input-wrapper input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 15px rgba(0, 255, 100, 0.4);
-}
-.input-wrapper input::placeholder {
-    color: #00aa66;
-}
-/* Botões dentro dos inputs */
-.enter-btn {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: transparent;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    padding: 8px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 15px;
-    box-shadow: 0 0 8px var(--accent);
-}
-.enter-btn:hover {
-    background: var(--accent);
-    color: black;
-    box-shadow: 0 0 15px var(--accent);
-}
-/* Botões grandes */
-.btn-matrix, .matrix-btn {
+.btn-matrix {
     width: 100%;
     padding: 16px;
-    margin: 10px 0;
+    margin: 15px 0;
     border-radius: 12px;
     border: none;
     background: linear-gradient(90deg, var(--accent), var(--accent2));
@@ -108,14 +80,24 @@ h1, .accordion-title {
     font-weight: 700;
     font-size: 17px;
     cursor: pointer;
-    transition: all 0.3s;
     box-shadow: 0 0 15px rgba(0, 255, 100, 0.5);
 }
-.btn-matrix:hover, .matrix-btn:hover {
+.btn-matrix:hover {
     transform: translateY(-3px);
     box-shadow: 0 0 25px var(--accent);
 }
-/* Resultados */
+.profile-container {
+    text-align: center;
+    margin: 20px 0 10px 0;
+}
+.profile-img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+    box-shadow: 0 0 30px rgba(0, 255, 100, 0.6);
+    object-fit: cover;
+}
 .result {
     margin-top: 20px;
     padding: 18px;
@@ -147,66 +129,17 @@ h1, .accordion-title {
     color: var(--accent);
     font-size: 16px;
 }
-/* Foto de Perfil */
-.profile-container {
-    text-align: center;
-    margin: 20px 0;
-}
-.profile-img {
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    border: 3px solid var(--accent);
-    box-shadow: 0 0 30px rgba(0, 255, 100, 0.6);
-    object-fit: cover;
-}
-/* Ajustes gerais */
-.lock-ascii{
-  display:flex;
-  justify-content:center;
-  margin-top:-5px;
-  margin-bottom:20px;
-  opacity:.8;
-}
-.lock-ascii pre{
-  margin:0;
-  color:#00ff88;
-  font-size:10px;
-  line-height:0.9;
-  font-family:'Share Tech Mono', monospace;
-  text-shadow:
-    0 0 5px #00ff88,
-    0 0 15px rgba(0,255,136,.5);
-  animation:lockGlow 3s infinite ease-in-out;
-}
-@keyframes lockGlow{
-  0%{
-    opacity:.5;
-    transform:scale(1);
-  }
-  50%{
-    opacity:1;
-    transform:scale(1.04);
-  }
-  100%{
-    opacity:.5;
-    transform:scale(1);
-  }
-}
 </style>
 </head>
 <body>
 <div class="container">
-    <h1>🌌 Decanato + Ciclos de Lilith</h1>
+    <h1>Decanato + Ciclos de 7</h1>
     
     <label>Data de nascimento</label>
     <input type="date" id="dataNascimento">
 
-    <label>Link da foto de perfil (rede social)</label>
-    <div class="input-wrapper">
-        <input type="text" id="profileLink" placeholder="Cole o link da imagem ou perfil">
-        <button class="enter-btn" onclick="carregarFoto()">Pegar Imagem</button>
-    </div>
+    <label>Foto de Perfil</label>
+    <input type="file" id="profileUpload" accept="image/*">
 
     <div class="profile-container" id="profileContainer" style="display: none;">
         <img id="profileImg" class="profile-img" alt="Foto de Perfil">
@@ -215,7 +148,7 @@ h1, .accordion-title {
     <button class="btn-matrix" onclick="calcular()">Revelar Influência</button>
 
     <div class="result" id="resultado">
-        <div class="big" id="signo"></div>
+        <div class="big" id="signo" style="font-size:22px; text-align:center; margin:15px 0;"></div>
         <div class="grid">
             <div class="card">
                 <span>Decanato</span>
@@ -241,39 +174,12 @@ h1, .accordion-title {
     </div>
 </div>
 
-<br>
-<div class="lock-ascii">
-     <pre>
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⡴⠶⠚⠛⠛⠛⠉⠛⠛⠛⢶⡟⠉⢢⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡴⠞⠋⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠷⡤⠾⣇⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⠶⠛⠁⠀⠀⠀⣀⣠⡤⠶⠒⠛⠛⠛⠛⠛⠶⣤⡀⠀⠀⠀⢹⡆
-⠀⠀⠀⠀⠀⠀⠀⢀⡴⠛⠁⠀⢰⠞⠳⡶⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣷⠀⠀⠀⢈⡇
-⠀⠀⠀⠀⠀⢀⡴⠋⠀⠀⠀⣠⡾⠷⠶⠇⢀⣠⣤⠶⠖⠲⢶⣄⠀⠀⠀⠀⠀⡿⠀⠀⠀⢸⡇
-⠀⠀⠀⠀⣴⠏⠀⠀⠀⣠⠞⠉⠀⠀⣠⡶⠋⠁⠀⠀⠀⠀⢀⡿⠀⠀⠀⠀⣼⠃⠀⠀⢀⡟⠂
-⠀⠀⢀⡾⠁⠀⠀⢠⡞⠁⠀⠀⢠⡾⠁⠀⠀⠀⠀⣀⣀⣠⡾⠁⠀⠀⣠⡾⠁⠀⠀⢠⡞⠁⠀
-⢠⡟⠛⣷⠂⠀⢠⡟⠀⠀⠀⠀⢾⡀⠀⠀⠀⠀⣸⣏⣹⡏⠀⠀⣠⡾⠋⠀⠀⢀⣴⠏⠀⠀⠀
-⠈⢻⡶⠛⠀⠀⣿⠀⠀⠀⠀⠀⠈⠛⠲⠖⠚⠋⠉⠉⠉⣀⣤⠞⠋⠀⠀⢀⣴⠟⠁⠀⠀⠀⠀
-⠀⢸⡇⠀⠀⠀⢻⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⠶⠛⠉⣀⣀⡀⣀⡴⠟⠁⠀⠀⠀⠀⠀⠀
-⠀⠘⣧⠀⠀⠀⠀⠙⠳⠶⠤⣤⠤⠶⠶⠚⠋⠉⠀⠀⠀⡟⠉⠈⢻⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠘⢷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⠶⠻⢦⣤⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠈⠛⠳⠶⠤⠤⠤⠤⠤⠴⠶⠒⠛⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-     </pre>
-   </div>
-    <br>
 <script>
+// Dados Astrológicos
 const icones = {
-  "Áries":"♈︎ Marte",
-  "Touro":" ♉︎ Venus",
-  "Gêmeos":"♊︎ Hermes",
-  "Câncer":"♋︎ Lilith",
-  "Leão":"♌︎ Apolo",
-  "Virgem":"♍︎ Venus",
-  "Libra":"♎︎ Venus",
-  "Escorpião":"♏︎ Plutão",
-  "Sagitário":"♐︎ Zeus",
-  "Capricórnio":"♑︎ Saturno",
-  "Aquário":"♒︎ Urano",
-  "Peixes":"♓︎ Leviatã"
+  "Áries":"♈︎ Marte", "Touro":"♉︎ Venus", "Gêmeos":"♊︎ Hermes", "Câncer":"♋︎ Lilith",
+  "Leão":"♌︎ Apolo", "Virgem":"♍︎ Venus", "Libra":"♎︎ Venus", "Escorpião":"♏︎ Plutão",
+  "Sagitário":"♐︎ Zeus", "Capricórnio":"♑︎ Saturno", "Aquário":"♒︎ Urano", "Peixes":"♓︎ Leviatã"
 };
 
 const signos = [
@@ -292,20 +198,21 @@ const signos = [
 ];
 
 const decanatos = {
-    "Áries":[ {planeta:"Marte", arquetipo:"Ares"}, {planeta:"Sol", arquetipo:"Hélio"}, {planeta:"Vênus", arquetipo:"Afrodite"} ],
-    "Touro":[ {planeta:"Vênus", arquetipo:"Afrodite"}, {planeta:"Mercúrio", arquetipo:"Hermes"}, {planeta:"Saturno", arquetipo:"Cronos"} ],
-    "Gêmeos":[ {planeta:"Mercúrio", arquetipo:"Hermes"}, {planeta:"Vênus", arquetipo:"Afrodite"}, {planeta:"Urano", arquetipo:"Ouranos"} ],
-    "Câncer":[ {planeta:"Lua", arquetipo:"Selene"}, {planeta:"Plutão", arquetipo:"Hades"}, {planeta:"Netuno", arquetipo:"Poseidon"} ],
-    "Leão":[ {planeta:"Sol", arquetipo:"Hélio"}, {planeta:"Júpiter", arquetipo:"Zeus"}, {planeta:"Marte", arquetipo:"Ares"} ],
-    "Virgem":[ {planeta:"Mercúrio", arquetipo:"Hermes"}, {planeta:"Saturno", arquetipo:"Cronos"}, {planeta:"Vênus", arquetipo:"Afrodite"} ],
-    "Libra":[ {planeta:"Vênus", arquetipo:"Afrodite"}, {planeta:"Saturno", arquetipo:"Cronos"}, {planeta:"Júpiter", arquetipo:"Zeus"} ],
-    "Escorpião":[ {planeta:"Plutão", arquetipo:"Hades"}, {planeta:"Marte", arquetipo:"Ares"}, {planeta:"Lua", arquetipo:"Selene"} ],
-    "Sagitário":[ {planeta:"Júpiter", arquetipo:"Zeus"}, {planeta:"Marte", arquetipo:"Ares"}, {planeta:"Sol", arquetipo:"Hélio"} ],
-    "Capricórnio":[ {planeta:"Saturno", arquetipo:"Cronos"}, {planeta:"Vênus", arquetipo:"Afrodite"}, {planeta:"Mercúrio", arquetipo:"Hermes"} ],
-    "Aquário":[ {planeta:"Urano", arquetipo:"Ouranos"}, {planeta:"Mercúrio", arquetipo:"Hermes"}, {planeta:"Vênus", arquetipo:"Afrodite"} ],
-    "Peixes":[ {planeta:"Netuno", arquetipo:"Poseidon"}, {planeta:"Lua", arquetipo:"Selene"}, {planeta:"Plutão", arquetipo:"Hades"} ]
+    "Áries": [{planeta:"Marte", arquetipo:"Ares"}, {planeta:"Sol", arquetipo:"Hélio"}, {planeta:"Vênus", arquetipo:"Afrodite"}],
+    "Touro": [{planeta:"Vênus", arquetipo:"Afrodite"}, {planeta:"Mercúrio", arquetipo:"Hermes"}, {planeta:"Saturno", arquetipo:"Cronos"}],
+    "Gêmeos": [{planeta:"Mercúrio", arquetipo:"Hermes"}, {planeta:"Vênus", arquetipo:"Afrodite"}, {planeta:"Urano", arquetipo:"Ouranos"}],
+    "Câncer": [{planeta:"Lua", arquetipo:"Selene"}, {planeta:"Plutão", arquetipo:"Hades"}, {planeta:"Netuno", arquetipo:"Poseidon"}],
+    "Leão": [{planeta:"Sol", arquetipo:"Hélio"}, {planeta:"Júpiter", arquetipo:"Zeus"}, {planeta:"Marte", arquetipo:"Ares"}],
+    "Virgem": [{planeta:"Mercúrio", arquetipo:"Hermes"}, {planeta:"Saturno", arquetipo:"Cronos"}, {planeta:"Vênus", arquetipo:"Afrodite"}],
+    "Libra": [{planeta:"Vênus", arquetipo:"Afrodite"}, {planeta:"Saturno", arquetipo:"Cronos"}, {planeta:"Júpiter", arquetipo:"Zeus"}],
+    "Escorpião": [{planeta:"Plutão", arquetipo:"Hades"}, {planeta:"Marte", arquetipo:"Ares"}, {planeta:"Lua", arquetipo:"Selene"}],
+    "Sagitário": [{planeta:"Júpiter", arquetipo:"Zeus"}, {planeta:"Marte", arquetipo:"Ares"}, {planeta:"Sol", arquetipo:"Hélio"}],
+    "Capricórnio": [{planeta:"Saturno", arquetipo:"Cronos"}, {planeta:"Vênus", arquetipo:"Afrodite"}, {planeta:"Mercúrio", arquetipo:"Hermes"}],
+    "Aquário": [{planeta:"Urano", arquetipo:"Ouranos"}, {planeta:"Mercúrio", arquetipo:"Hermes"}, {planeta:"Vênus", arquetipo:"Afrodite"}],
+    "Peixes": [{planeta:"Netuno", arquetipo:"Poseidon"}, {planeta:"Lua", arquetipo:"Selene"}, {planeta:"Plutão", arquetipo:"Hades"}]
 };
 
+// Funções auxiliares
 function parseDate(input){
     const [y,m,d] = input.split("-").map(Number);
     return new Date(y, m-1, d);
@@ -313,8 +220,8 @@ function parseDate(input){
 
 function idade(d){
     const h = new Date();
-    let i = h.getFullYear()-d.getFullYear();
-    if(h.getMonth()<d.getMonth() || (h.getMonth()===d.getMonth() && h.getDate()<d.getDate())) i--;
+    let i = h.getFullYear() - d.getFullYear();
+    if (h.getMonth() < d.getMonth() || (h.getMonth() === d.getMonth() && h.getDate() < d.getDate())) i--;
     return i;
 }
 
@@ -324,12 +231,12 @@ function getSigno(date){
     for(let s of signos){
         const [sm, sd] = s.inicio;
         const [em, ed] = s.fim;
-        if(sm < em || (sm === em && sd <= ed)){
-            if((m === sm && d >= sd) || (m === em && d <= ed) || (m > sm && m < em)){
+        if (sm < em || (sm === em && sd <= ed)){
+            if ((m === sm && d >= sd) || (m === em && d <= ed) || (m > sm && m < em)){
                 return s.nome;
             }
         } else {
-            if((m === sm && d >= sd) || (m === em && d <= ed) || m > sm || m < em){
+            if ((m === sm && d >= sd) || (m === em && d <= ed) || m > sm || m < em){
                 return s.nome;
             }
         }
@@ -355,32 +262,25 @@ function getDecanato(signo, date){
     };
 }
 
-// Novo: Ciclo de Lilith
 function getCicloLilith(anos){
     if(anos < 0) return "Ainda não nasceu";
     const ciclo = Math.min(Math.floor(anos / 7) + 1, 7);
     return `${ciclo}º Ciclo de Lilith`;
 }
 
-// Novo: Carregar Foto de Perfil
-function carregarFoto(){
-    const url = document.getElementById("profileLink").value.trim();
-    if(!url) {
-        alert("Insira um link de imagem!");
-        return;
-    }
+// Preview da foto de perfil
+document.getElementById("profileUpload").addEventListener("change", function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    
     const img = document.getElementById("profileImg");
     const container = document.getElementById("profileContainer");
     
-    img.src = url;
+    img.src = URL.createObjectURL(file);
     container.style.display = "block";
-    
-    img.onerror = () => {
-        alert("Não foi possível carregar a imagem. Verifique o link.");
-        container.style.display = "none";
-    };
-}
+});
 
+// Função principal
 function calcular(){
     const input = document.getElementById("dataNascimento").value;
     if(!input) {

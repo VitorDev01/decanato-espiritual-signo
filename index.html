@@ -154,6 +154,9 @@ input[type="date"], input[type="file"] {
             <div class="card"><span>Arcano do Tarot</span><strong id="arcanoTarot"></strong></div>
         </div>
     </div>
+
+<button id="btnPDF" class="btn-matrix" onclick="salvarPDF()" style="display:none;">📄 Salvar PDF</button>
+
 </div>
 
 <script>
@@ -310,8 +313,23 @@ function calcular(){
     document.getElementById("cicloLilith").innerText = getCicloLilith(anos);
     document.getElementById("arcanoTarot").innerText = arcano;
    
-    document.getElementById("resultado").style.display = "block";
+    document.getElementById("resultado").style.display="block";document.getElementById("btnPDF").style.display="block";
 }
+
+async function salvarPDF(){
+ const {jsPDF}=window.jspdf;
+ const canvas=await html2canvas(document.querySelector(".container"),{scale:2,useCORS:true});
+ const img=canvas.toDataURL("image/png");
+ const pdf=new jsPDF("p","mm","a4");
+ const w=190,h=canvas.height*w/canvas.width;
+ pdf.addImage(img,"PNG",10,10,w,h);
+ pdf.save("Influencia_Astral.pdf");
+}
+
 </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 </body>
 </html>

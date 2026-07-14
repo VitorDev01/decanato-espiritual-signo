@@ -56,11 +56,7 @@ label {
     margin: 15px 0 6px;
     color: var(--muted);
 }
-.input-wrapper {
-    position: relative;
-    margin-bottom: 16px;
-}
-.input-wrapper input {
+input[type="date"], input[type="file"] {
     width: 100%;
     padding: 16px 18px;
     border-radius: 12px;
@@ -133,43 +129,29 @@ label {
 </head>
 <body>
 <div class="container">
-    <h1>Decanato + Ciclos de 7</h1>
-    
+    <h1> Decanato + Ciclos de 7</h1>
+   
     <label>Data de nascimento</label>
     <input type="date" id="dataNascimento">
-
+    
     <label>Foto de Perfil</label>
     <input type="file" id="profileUpload" accept="image/*">
-
+    https://github.com/VitorDev01/decanato-espiritual-signo/blob/gh-pages/index.html
     <div class="profile-container" id="profileContainer" style="display: none;">
         <img id="profileImg" class="profile-img" alt="Foto de Perfil">
     </div>
-
+    
     <button class="btn-matrix" onclick="calcular()">Revelar Influência</button>
-
+    
     <div class="result" id="resultado">
         <div class="big" id="signo" style="font-size:22px; text-align:center; margin:15px 0;"></div>
         <div class="grid">
-            <div class="card">
-                <span>Decanato</span>
-                <strong id="decanato"></strong>
-            </div>
-            <div class="card">
-                <span>Planeta</span>
-                <strong id="planeta"></strong>
-            </div>
-            <div class="card">
-                <span>Arquétipo</span>
-                <strong id="arquetipo"></strong>
-            </div>
-            <div class="card">
-                <span>Idade</span>
-                <strong id="idade"></strong>
-            </div>
-            <div class="card">
-                <span>Ciclo de Lilith</span>
-                <strong id="cicloLilith"></strong>
-            </div>
+            <div class="card"><span>Decanato</span><strong id="decanato"></strong></div>
+            <div class="card"><span>Planeta</span><strong id="planeta"></strong></div>
+            <div class="card"><span>Arquétipo</span><strong id="arquetipo"></strong></div>
+            <div class="card"><span>Idade</span><strong id="idade"></strong></div>
+            <div class="card"><span>Ciclo de Lilith</span><strong id="cicloLilith"></strong></div>
+            <div class="card"><span>Arcano do Tarot</span><strong id="arcanoTarot"></strong></div>
         </div>
     </div>
 </div>
@@ -212,7 +194,17 @@ const decanatos = {
     "Peixes": [{planeta:"Netuno", arquetipo:"Poseidon"}, {planeta:"Lua", arquetipo:"Selene"}, {planeta:"Plutão", arquetipo:"Hades"}]
 };
 
-// Funções auxiliares
+// Arcanos Maiores do Tarot (corrigido)
+const arcanos = {
+    0: "0 - O Louco", 1: "1 - O Mago", 2: "2 - A Sacerdotisa", 3: "3 - A Imperatriz",
+    4: "4 - O Imperador", 5: "5 - O Hierofante", 6: "6 - Os Enamorados", 7: "7 - O Carro",
+    8: "8 - A Força", 9: "9 - O Eremita", 10: "10 - A Roda da Fortuna", 11: "11 - A Justiça",
+    12: "12 - O Enforcado", 13: "13 - A Morte", 14: "14 - A Temperança", 15: "15 - O Diabo",
+    16: "16 - A Torre", 17: "17 - A Estrela", 18: "18 - A Lua", 19: "19 - O Sol",
+    20: "20 - O Julgamento", 21: "21 - O Mundo", 22: "22 - O Mundo"
+};
+
+// Funções
 function parseDate(input){
     const [y,m,d] = input.split("-").map(Number);
     return new Date(y, m-1, d);
@@ -268,30 +260,47 @@ function getCicloLilith(anos){
     return `${ciclo}º Ciclo de Lilith`;
 }
 
-// Preview da foto de perfil
+function calcularArcano(dataStr) {
+    const numeros = dataStr.replace(/-/g, '');
+    let soma = 0;
+    for(let char of numeros) soma += parseInt(char);
+    
+    while (soma > 22) {
+        let temp = 0;
+        let num = soma;
+        while (num > 0) {
+            temp += num % 10;
+            num = Math.floor(num / 10);
+        }
+        soma = temp;
+    }
+    if (soma === 0) soma = 22;
+    return arcanos[soma];
+}
+
+// Preview da foto
 document.getElementById("profileUpload").addEventListener("change", function(e) {
     const file = e.target.files[0];
     if (!file) return;
-    
     const img = document.getElementById("profileImg");
     const container = document.getElementById("profileContainer");
-    
     img.src = URL.createObjectURL(file);
     container.style.display = "block";
 });
 
-// Função principal
+// Função Principal
 function calcular(){
     const input = document.getElementById("dataNascimento").value;
     if(!input) {
         alert("Por favor, insira sua data de nascimento");
         return;
     }
-    
+   
     const d = parseDate(input);
     const signo = getSigno(d);
     const dec = getDecanato(signo, d);
     const anos = idade(d);
+    const arcano = calcularArcano(input);
 
     document.getElementById("signo").innerText = icones[signo] + " " + signo;
     document.getElementById("decanato").innerText = dec.decanato;
@@ -299,7 +308,8 @@ function calcular(){
     document.getElementById("arquetipo").innerText = dec.arquetipo;
     document.getElementById("idade").innerText = anos + " anos";
     document.getElementById("cicloLilith").innerText = getCicloLilith(anos);
-    
+    document.getElementById("arcanoTarot").innerText = arcano;
+   
     document.getElementById("resultado").style.display = "block";
 }
 </script>
